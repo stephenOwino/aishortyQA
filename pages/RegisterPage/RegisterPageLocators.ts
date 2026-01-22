@@ -10,6 +10,9 @@ export const RegisterPageLocators = {
   createAccountBtnName: 'Create Account',
   signInLinkName: 'Sign in',
 
+  googleSignInBtn: '[data-test="google-signin"]',
+  appleSignInBtn: '[data-test="apple-signin"]',
+
   errors: {
     firstName: 'Please enter your first name',
     lastName: 'Please enter your last name',
@@ -20,5 +23,13 @@ export const RegisterPageLocators = {
     uppercase: 'At least one uppercase letter required',
     specialChar: 'At least special character required',
     passwordMatch: 'Passwords must match',
+  },
+
+  success: {
+    minLength: 'The minimum length is reached',
+    number: 'At least one number',
+    uppercase: 'At least one uppercase letter',
+    specialChar: 'At least special character',
+    passwordMatch: 'Passwords match',
   },
 } as const;

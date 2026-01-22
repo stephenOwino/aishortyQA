@@ -23,6 +23,8 @@ export class RegisterPage {
 
   readonly createAccountBtn: Locator;
   readonly signInLink: Locator;
+  readonly googleSignInBtn: Locator;
+  readonly appleSignInBtn: Locator;
 
   readonly errorFirstName: Locator;
   readonly errorLastName: Locator;
@@ -33,6 +35,12 @@ export class RegisterPage {
   readonly errorUppercase: Locator;
   readonly errorSpecialChar: Locator;
   readonly errorPasswordMatch: Locator;
+
+  readonly successMinLength: Locator;
+  readonly successNumber: Locator;
+  readonly successUppercase: Locator;
+  readonly successSpecialChar: Locator;
+  readonly successPasswordMatch: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -47,16 +55,24 @@ export class RegisterPage {
 
     this.createAccountBtn = page.getByRole('button', { name: locators.createAccountBtnName });
     this.signInLink = page.getByRole('link', { name: locators.signInLinkName });
+    this.googleSignInBtn = page.locator(locators.googleSignInBtn);
+    this.appleSignInBtn = page.locator(locators.appleSignInBtn);
 
     this.errorFirstName = page.getByText(locators.errors.firstName);
     this.errorLastName = page.getByText(locators.errors.lastName);
     this.errorUsername = page.getByText(locators.errors.username);
     this.errorEmail = page.getByText(locators.errors.email);
-    this.errorMinLength = page.getByText(locators.errors.minLength);
-    this.errorNumber = page.getByText(locators.errors.number);
-    this.errorUppercase = page.getByText(locators.errors.uppercase);
-    this.errorSpecialChar = page.getByText(locators.errors.specialChar);
-    this.errorPasswordMatch = page.getByText(locators.errors.passwordMatch);
+    this.errorMinLength = page.getByRole('list').getByText(locators.errors.minLength);
+    this.errorNumber = page.getByRole('list').getByText(locators.errors.number);
+    this.errorUppercase = page.getByRole('list').getByText(locators.errors.uppercase);
+    this.errorSpecialChar = page.getByRole('list').getByText(locators.errors.specialChar);
+    this.errorPasswordMatch = page.getByRole('list').getByText(locators.errors.passwordMatch);
+
+    this.successMinLength = page.getByRole('list').getByText(locators.success.minLength);
+    this.successNumber = page.getByRole('list').getByText(locators.success.number);
+    this.successUppercase = page.getByRole('list').getByText(locators.success.uppercase);
+    this.successSpecialChar = page.getByRole('list').getByText(locators.success.specialChar);
+    this.successPasswordMatch = page.getByRole('list').getByText(locators.success.passwordMatch);
   }
 
   async goTo(): Promise<void> {
@@ -140,8 +156,10 @@ export class RegisterPage {
     await this.lastName.fill(faker.person.lastName());
     await this.username.fill(faker.internet.username());
     await this.email.fill(faker.internet.email());
+    
+    await this.password.click();
     await this.password.fill(shortPassword);
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(300);
   }
 
   async fillFormWithPasswordNoNumber(): Promise<void> {
@@ -151,9 +169,10 @@ export class RegisterPage {
     await this.lastName.fill(faker.person.lastName());
     await this.username.fill(faker.internet.username());
     await this.email.fill(faker.internet.email());
+    
+    await this.password.click();
     await this.password.fill(passwordNoNumber);
-
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(300);
   }
 
   async fillFormWithPasswordNoUppercase(): Promise<void> {
@@ -163,9 +182,10 @@ export class RegisterPage {
     await this.lastName.fill(faker.person.lastName());
     await this.username.fill(faker.internet.username());
     await this.email.fill(faker.internet.email());
+    
+    await this.password.click();
     await this.password.fill(passwordNoUppercase);
-
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(300);
   }
 
   async fillFormWithPasswordNoSpecialChar(): Promise<void> {
@@ -175,9 +195,10 @@ export class RegisterPage {
     await this.lastName.fill(faker.person.lastName());
     await this.username.fill(faker.internet.username());
     await this.email.fill(faker.internet.email());
+    
+    await this.password.click();
     await this.password.fill(passwordNoSpecial);
-
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(300);
   }
 
   async fillFormWithMismatchedPasswords(): Promise<void> {
@@ -186,13 +207,27 @@ export class RegisterPage {
     await this.username.fill(faker.internet.username());
     await this.email.fill(faker.internet.email());
 
-    const password1 = 'Test@123' + faker.string.alphanumeric(6);
-    const password2 = 'Different@456' + faker.string.alphanumeric(6);
+    const password = 'Test@123456';
+    await this.password.click();
+    await this.password.fill(password);
+    
+    await this.confirmPassword.click();
+    await this.confirmPassword.fill('Different@123');
+    await this.page.waitForTimeout(300);
+  }
 
-    await this.password.fill(password1);
-    await this.confirmPassword.fill(password2);
+  async fillFormWithStrongPassword(): Promise<void> {
+    const strongPassword = 'Test@123456';
 
-    await this.page.waitForTimeout(500);
+    await this.firstName.fill(faker.person.firstName());
+    await this.lastName.fill(faker.person.lastName());
+    await this.username.fill(faker.internet.username());
+    await this.email.fill(faker.internet.email());
+    
+    await this.password.click();
+    await this.password.fill(strongPassword);
+    await this.confirmPassword.fill(strongPassword);
+    await this.page.waitForTimeout(300);
   }
 
   async fillFormWithWeakPassword(): Promise<void> {
@@ -202,8 +237,9 @@ export class RegisterPage {
     await this.lastName.fill(faker.person.lastName());
     await this.username.fill(faker.internet.username());
     await this.email.fill(faker.internet.email());
+    
     await this.password.fill(weakPassword);
-
+    await this.password.press('Tab');
     await this.page.waitForTimeout(500);
   }
 
@@ -213,5 +249,13 @@ export class RegisterPage {
 
   async clickSignIn(): Promise<void> {
     await this.signInLink.click();
+  }
+
+  async clickGoogleSignIn(): Promise<void> {
+    await this.googleSignInBtn.click();
+  }
+
+  async clickAppleSignIn(): Promise<void> {
+    await this.appleSignInBtn.click();
   }
 }
