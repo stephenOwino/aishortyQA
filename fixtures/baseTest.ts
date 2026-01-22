@@ -3,7 +3,6 @@ import { RegisterPage } from "../pages/RegisterPage/RegisterPage";
 
 
 
-// 1. Define the "Menu" of available Page Objects
 type PageObjects = {
     registerPage: RegisterPage;
 
@@ -15,7 +14,6 @@ type AuthFixture = {
 
 export const test = baseTest.extend<PageObjects & AuthFixture>({
     
-    // Initialize the RegisterPage
     registerPage: async ({ page }, use) => {
         const registerPage = new RegisterPage(page);
         await use(registerPage);

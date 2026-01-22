@@ -23,3 +23,4 @@ tests/ - Test files (Signup, Login, etc.).
 fixtures/ - Test setup and dependency injection.
 
 playwright.config.ts - Framework settings and device configurations.
+![alt text](image.png)
