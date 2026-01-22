@@ -24,3 +24,4 @@ fixtures/ - Test setup and dependency injection.
 
 playwright.config.ts - Framework settings and device configurations.
 ![alt text](image.png)
+![alt text](image-1.png)
