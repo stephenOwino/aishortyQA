@@ -1,35 +1,35 @@
 export const RegisterPageLocators = {
-  signupLink: 'a[href="https://aishorty.com/signup"]',
-  firstName: '#firstName',
-  lastName: '#lastName',
-  username: '#username',
-  email: '#email',
-  password: '#password',
-  confirmPassword: '#confirmPassword',
-
-  createAccountBtnName: 'Create Account',
-  signInLinkName: 'Sign in',
-
-  googleSignInBtn: '[data-test="google-signin"]',
-  appleSignInBtn: '[data-test="apple-signin"]',
-
+  appleSignInBtn: `[data-test="apple-signin"]`,
+  confirmPassword: `#confirmPassword`,
+  createAccountBtnName: `Create Account`,
+  email: `#email`,
   errors: {
-    firstName: 'Please enter your first name',
-    lastName: 'Please enter your last name',
-    username: 'Please enter your username',
-    email: 'Please enter your email',
-    minLength: 'At least 5 characters required',
-    number: 'At least one number required',
-    uppercase: 'At least one uppercase letter required',
-    specialChar: 'At least special character required',
-    passwordMatch: 'Passwords must match',
+    email: `Please enter your email`,
+    firstName: `Please enter your first name`,
+    lastName: `Please enter your last name`,
+    minLength: `At least 5 characters required`,
+    number: `At least one number required`,
+    passwordMatch: `Passwords must match`,
+    specialChar: `At least special character required`,
+    uppercase: `At least one uppercase letter required`,
+    username: `Please enter your username`,
   },
+  firstName: `#firstName`,
+  googleSignInBtn: `[data-test="google-signin"]`,
+
+  lastName: `#lastName`,
+  password: `#password`,
+
+  signInLinkName: `Sign in`,
+  signupLink: `a[href="https://aishorty.com/signup"]`,
 
   success: {
-    minLength: 'The minimum length is reached',
-    number: 'At least one number',
-    uppercase: 'At least one uppercase letter',
-    specialChar: 'At least special character',
-    passwordMatch: 'Passwords match',
+    minLength: `The minimum length is reached`,
+    number: `At least one number`,
+    passwordMatch: `Passwords match`,
+    specialChar: `At least special character`,
+    uppercase: `At least one uppercase letter`,
   },
+
+  username: `#username`,
 } as const;
